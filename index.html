@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Jay Deepak Raval — About Me</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* BASE VARIABLES & RESETS */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#fafaf8;--bg2:#f3f2ee;--bg3:#eae9e3;
+  --ink:#1a1a18;--ink2:#3d3d38;--muted:#8a8a7a;
+  --accent:#c8602a;--accent2:#e8936a;--gold:#b8960c;
+  --green:#2d6a4f;--blue:#1d4e89;
+  --sans:'Mulish',sans-serif;--serif:'Playfair Display',serif;
+  --border:rgba(26,26,24,0.1);
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;}
+
+/* HERO */
+.hero{background:var(--ink);padding:44px 32px 40px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%,rgba(200,96,42,0.18) 0%,transparent 55%),
+             radial-gradient(ellipse at 10% 80%,rgba(29,78,137,0.12) 0%,transparent 50%);}
+.hero-inner{position:relative;z-index:1;display:flex;gap:24px;align-items:flex-start;max-width:860px;margin:0 auto;}
+.avatar{width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:28px;font-weight:700;color:#fff;flex-shrink:0;
+  border:3px solid rgba(255,255,255,0.15);box-shadow:0 8px 28px rgba(200,96,42,0.35);}
+.hero-text{flex:1;min-width:200px;}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);display:block;margin-bottom:8px;}
+.hero-name{font-family:var(--serif);font-size:32px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:6px;}
+.hero-name em{font-style:italic;color:var(--accent2);}
+.hero-role{font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);margin-bottom:16px;}
+.hero-contact{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  font-size:11px;color:rgba(255,255,255,0.75);font-weight:500;}
+.hero-stats{display:flex;gap:20px;padding-left:24px;border-left:1px solid rgba(255,255,255,0.1);flex-shrink:0;align-items:center;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-num{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--accent2);line-height:1;}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:3px;}
+
+/* NAV */
+.nav-wrapper{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.nav{max-width:860px;margin:0 auto;padding:0 32px;display:flex;gap:0;
+  /* Scrollable on mobile */
+  overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
+.nav::-webkit-scrollbar{display:none;}
+.ntab{padding:13px 18px;font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;
+  border:none;background:transparent;color:var(--muted);border-bottom:2px solid transparent;
+  transition:all .18s;font-family:var(--sans);flex-shrink:0;}
+.ntab:hover{color:var(--ink2);}
+.ntab.on{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* CONTENT */
+.content{padding:24px 32px 48px;max-width:860px;margin:0 auto;}
+.section{display:none;}.section.show{display:block;}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fu .35s ease both;}
+
+/* PANELS */
+.panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:14px;}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.summary-text{font-size:13px;color:var(--ink2);line-height:1.85;font-weight:400;}
+.summary-text strong{color:var(--accent);font-weight:700;}
+.summary-text+.summary-text{margin-top:10px;}
+
+/* STRENGTHS */
+.strength-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:8px;margin-top:16px;}
+.strength-item{display:flex;align-items:flex-start;gap:7px;padding:9px 11px;
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  font-size:11px;color:var(--ink2);line-height:1.4;}
+.strength-item::before{content:'✦';color:var(--accent);font-size:10px;margin-top:1px;flex-shrink:0;}
+
+/* DOMAINS */
+.domain-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.dtag{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;
+  background:var(--bg2);color:var(--ink2);border:1px solid var(--border);display:inline-flex;align-items:center;gap:6px;}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;}
+.edu-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.edu-deg{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.edu-inst{font-size:11px;color:var(--muted);margin-bottom:6px;}
+.edu-meta{display:flex;gap:10px;}
+.edu-year{font-size:11px;color:var(--accent);font-weight:700;}
+.edu-cgpa{font-size:11px;color:var(--muted);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:26px;}
+.timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(to bottom,var(--accent),var(--bg3));}
+.exp-item{position:relative;margin-bottom:20px;}
+.exp-dot{position:absolute;left:-26px;top:16px;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 2px var(--accent);}
+.exp-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;
+  cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.exp-card:hover{border-color:rgba(200,96,42,0.3);box-shadow:0 4px 18px rgba(200,96,42,0.08);}
+.exp-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.exp-role{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--ink);}
+.exp-company{font-size:11px;font-weight:700;color:var(--accent);margin-top:2px;}
+.exp-period{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);background:var(--bg2);padding:3px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;}
+.exp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.etag{padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;
+  background:var(--bg2);color:var(--muted);border:1px solid var(--border);}
+.exp-toggle{font-size:10px;color:var(--accent);font-weight:700;margin-top:8px;display:inline-block;cursor:pointer;}
+.exp-body{display:none;border-top:1px solid var(--border);margin-top:10px;padding-top:10px;}
+.exp-body.show{display:block;}
+.exp-ach{display:flex;gap:7px;padding:4px 0;font-size:11px;color:var(--ink2);
+  border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.5;}
+.exp-ach:last-child{border-bottom:none;}
+.exp-ach::before{content:'→';color:var(--accent);flex-shrink:0;font-size:10px;margin-top:2px;}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.skill-group{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;}
+.sg-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.skill-pill{display:inline-block;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;margin:2px;border:1px solid transparent;}
+.sp-java{background:rgba(200,96,42,0.1);color:#c8602a;border-color:rgba(200,96,42,0.2);}
+.sp-cloud{background:rgba(29,78,137,0.1);color:#1d4e89;border-color:rgba(29,78,137,0.2);}
+.sp-data{background:rgba(45,106,79,0.1);color:#2d6a4f;border-color:rgba(45,106,79,0.2);}
+.sp-devops{background:rgba(138,138,122,0.12);color:#5a5a4a;border-color:rgba(138,138,122,0.25);}
+.sp-ai{background:rgba(184,150,12,0.1);color:#8a6d00;border-color:rgba(184,150,12,0.2);}
+.proficiency-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;}
+.bar-item{margin-bottom:10px;}
+.bar-label{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:var(--ink2);margin-bottom:4px;}
+.bar-pct{color:var(--muted);font-weight:400;}
+.bar-track{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;background:linear-gradient(to right,var(--accent),var(--accent2));width:0;transition:width 1.2s ease;}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.proj-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;
+  transition:box-shadow .2s,border-color .2s;display:flex;flex-direction:column;}
+.proj-name{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.proj-period{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+.proj-impact{font-size:11px;font-weight:700;color:var(--green);
+  background:rgba(45,106,79,0.08);border:1px solid rgba(45,106,79,0.15);
+  border-radius:5px;padding:3px 8px;display:inline-table;margin-bottom:9px;width:fit-content;}
+.proj-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:9px;flex-grow:1;}
+
+/* CERTS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:10px;}
+.cert-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;
+  display:flex;flex-direction:column;gap:7px;transition:box-shadow .2s;}
+.cert-card:hover{box-shadow:0 4px 14px rgba(0,0,0,0.07);}
+.cert-icon{font-size:20px;}
+.cert-name{font-size:12px;font-weight:700;color:var(--ink);line-height:1.4;}
+.cert-issuer{font-size:10px;color:var(--muted);font-weight:600;}
+.method-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.mtag{padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;
+  background:var(--bg2);color:var(--ink2);border:1px solid var(--border);}
+.personal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.pi-k{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.pi-v{font-size:13px;color:var(--ink2);font-weight:500;}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media(max-width:768px){
+  .hero{padding:32px 20px;}
+  .content{padding:20px 20px 40px;}
+  .nav{padding:0 20px;}
+  .hero-inner{flex-direction:column;align-items:center;text-align:center;gap:16px;}
+  .hero-contact{justify-content:center;}
+  .hero-stats{border-left:none;padding-left:0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);justify-content:center;width:100%;}
+  .proficiency-grid{grid-template-columns:1fr;gap:0;}
+  .personal-grid{grid-template-columns:1fr;gap:12px;}
+}
+
+@media(max-width:480px){
+  .hero-name{font-size:26px;}
+  .avatar{width:64px;height:64px;font-size:22px;}
+  .exp-hdr{flex-direction:column;gap:4px;}
+  .exp-card{padding:14px;}
+  .panel{padding:16px;}
+  .timeline::before{left:4px;}
+  .exp-dot{left:-24px;width:10px;height:10px;}
+}
+
+/* --- PRINT / PDF EXPORT STYLES --- */
+.print-btn {
+  position: fixed; bottom: 24px; right: 24px; z-index: 100;
+  background: var(--ink); color: #fff; border: none; border-radius: 50px;
+  padding: 12px 20px; font-family: var(--sans); font-weight: 700; font-size: 13px;
+  cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+}
+.print-btn:hover { background: var(--accent); transform: translateY(-2px); }
+
+@media print {
+  /* Hide UI elements not needed in PDF */
+  .nav-wrapper, .print-btn, .exp-toggle { display: none !important; }
+  
+  /* Reset backgrounds for clean printing */
+  body, .hero, .panel, .exp-card, .proj-card, .cert-card, .skill-group { 
+    background: #fff !important; color: #000 !important; 
+    box-shadow: none !important; border-color: #ddd !important;
+  }
+  
+  /* Make text dark for legibility */
+  .hero-name, .hero-role, .hero-tag, .chip, .stat-num, .stat-label { color: #000 !important; }
+  .hero-name em { color: #555 !important; }
+  .hero { padding: 20px 0 !important; }
+  
+  /* Show EVERYTHING (all tabs and collapsed details) */
+  .section { display: block !important; opacity: 1 !important; animation: none !important; margin-bottom: 24px; }
+  .exp-body { display: block !important; border-top: none; margin-top: 5px; padding-top: 0; }
+  
+  /* Prevent page breaks inside important cards */
+  .panel, .exp-item, .proj-card, .edu-card, .skill-group, .cert-card { page-break-inside: avoid; break-inside: avoid; }
+  
+  /* Simplify chips and tags for print */
+  .chip, .etag, .dtag, .skill-pill, .mtag, .proj-impact { 
+    border: 1px solid #aaa !important; background: transparent !important; color: #333 !important; padding: 2px 6px;
+  }
+  
+  /* Print margins */
+  @page { margin: 1cm; }
+}
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+  Save as PDF
+</button>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="avatar">JR</div>
+    <div class="hero-text">
+      <span class="hero-tag">Lead Technologist · AWS Certified</span>
+      <div class="hero-name">Jay <em>Deepak</em> Raval</div>
+      <div class="hero-role">Enterprise Software Architect · Java · Microservices · Cloud · AI</div>
+      <div class="hero-contact">
+        <span class="chip">📧 jay.rawal841991@gmail.com</span>
+        <span class="chip">📱 +91-8780094067</span>
+        <span class="chip">🌐 jayrawal.info</span>
+        <span class="chip">📍 India</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">10.8+</div><div class="stat-label">Years Exp.</div></div>
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Projects</div></div>
+      <div class="stat"><div class="stat-num">50M+</div><div class="stat-label">Events/day</div></div>
+      <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Mentored</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-wrapper">
+  <div class="nav">
+    <button class="ntab on" onclick="showTab('about',this)">About</button>
+    <button class="ntab" onclick="showTab('experience',this)">Experience</button>
+    <button class="ntab" onclick="showTab('skills',this)">Skills</button>
+    <button class="ntab" onclick="showTab('projects',this)">Projects</button>
+    <button class="ntab" onclick="showTab('certs',this)">Certifications</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <div id="tab-about" class="section show">
+    <div class="panel anim">
+      <div class="sec-label">Professional Summary</div>
+      <p class="summary-text">I'm an <strong>AWS-certified Lead Technologist</strong> with <strong>10.8+ years</strong> of hands-on expertise designing and delivering enterprise-grade software across <strong>FinTech, Healthcare, Aerospace, and E-Commerce</strong> domains. My core craft is <strong>Java & Spring Boot microservices</strong> — building event-driven, cloud-native systems that handle millions of transactions reliably.</p>
+      <p class="summary-text" style="margin-top:10px;">At <strong>IBM</strong>, I architected a platform processing <strong>50M+ baggage events per day</strong> at 99.99% uptime across international airports. At <strong>Cygnet Infotech</strong>, I lead the technical strategy for a PCI/GDPR-compliant payments platform and mentor a team of 12+ engineers on distributed systems and cloud-native patterns.</p>
+      <p class="summary-text" style="margin-top:10px;">I'm equally passionate about <strong>AI integration</strong> — actively exploring LangChain4j, Spring AI, RAG architectures, and MCP for building intelligent Java applications.</p>
+    </div>
+    <div class="panel anim" style="animation-delay:.07s">
+      <div class="sec-label">Core Strengths</div>
+      <div class="strength-grid">
+        <div class="strength-item">Cloud-native microservices architecture (AWS & Azure)</div>
+        <div class="strength-item">Event-driven design with Apache Kafka at scale</div>
+        <div class="strength-item">Distributed systems — CQRS, Saga, Outbox patterns</div>
+        <div class="strength-item">PCI DSS / GDPR / HIPAA compliant system design</div>
+        <div class="strength-item">Leading & mentoring cross-functional engineering teams</div>
+        <div class="strength-item">AI integration — LangChain4j, RAG, MCP, Prompt Engineering</div>
+        <div class="strength-item">DevSecOps — security-first CI/CD pipelines</div>
+        <div class="strength-item">Performance tuning — JVM, DB, cache, Kubernetes HPA</div>
+      </div>
+    </div>
+    <div class="panel anim" style="animation-delay:.13s">
+      <div class="sec-label">Domain Expertise</div>
+      <div class="domain-tags">
+        <span class="dtag">💳 FinTech & Payments (PCI/GDPR)</span>
+        <span class="dtag">🏥 Healthcare (HIPAA, EHR)</span>
+        <span class="dtag">✈️ Transportation & Logistics</span>
+        <span class="dtag">🏢 Enterprise ERP & BI</span>
+        <span class="dtag">🛒 E-Commerce Platforms</span>
+        <span class="dtag">🏛️ Government & Compliance</span>
+      </div>
+    </div>
+    <div class="panel anim" style="animation-delay:.18s">
+      <div class="sec-label">Education</div>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-deg">B.E. Information Technology</div>
+          <div class="edu-inst">Gujarat Technological University</div>
+          <div class="edu-meta"><span class="edu-year">Class of 2016</span><span class="edu-cgpa">CGPA: 7.45</span></div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-deg">Diploma of Engineering</div>
+          <div class="edu-inst">Gujarat Technological University</div>
+          <div class="edu-meta"><span class="edu-year">Class of 2011</span><span class="edu-cgpa">CGPA: 6.4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-experience" class="section">
+    <div class="timeline">
+
+      <div class="exp-item anim">
+        <div class="exp-dot"></div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-hdr">
+            <div><div class="exp-role">Lead Technologist</div><div class="exp-company">Cygnet Infotech Private Limited</div></div>
+            <span class="exp-period">Dec 2023 – Present</span>
+          </div>
+          <div class="exp-tags"><span class="etag">Java 21</span><span class="etag">Spring Boot 3</span><span class="etag">AWS</span><span class="etag">Azure</span><span class="etag">K8s</span><span class="etag">PCI/GDPR</span></div>
+          <span class="exp-toggle">▼ Show achievements</span>
+          <div class="exp-body show">
+            <div class="exp-ach">Architect enterprise solutions in E-Commerce, FinTech & Payment domain with PCI, GDPR, HIPAA compliance</div>
+            <div class="exp-ach">Led monolith-to-microservices migration reducing deployment time by 70%</div>
+            <div class="exp-ach">Designed cloud architecture on AWS/Azure with auto-scaling, load balancing & disaster recovery</div>
+            <div class="exp-ach">Implemented DevSecOps pipelines using Jenkins, GitLab CI/CD, Docker, and Kubernetes</div>
+            <div class="exp-ach">Mentored 12+ engineers on advanced Java, Spring ecosystem, and cloud-native patterns</div>
+            <div class="exp-ach">Established coding standards improving overall code quality by 40%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item anim" style="animation-delay:.07s">
+        <div class="exp-dot"></div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-hdr">
+            <div><div class="exp-role">Advisory System Analyst</div><div class="exp-company">IBM Corporation</div></div>
+            <span class="exp-period">Aug 2021 – Dec 2023</span>
+          </div>
+          <div class="exp-tags"><span class="etag">Quarkus</span><span class="etag">Kafka</span><span class="etag">AWS ROSA</span><span class="etag">OpenShift</span><span class="etag">DynamoDB</span></div>
+          <span class="exp-toggle">▼ Show achievements</span>
+          <div class="exp-body">
+            <div class="exp-ach">Architected BagODS airport operations platform using Quarkus reactive programming</div>
+            <div class="exp-ach">Implemented event-driven microservices with 15+ services handling 50M+ daily events at 99.99% uptime</div>
+            <div class="exp-ach">Designed cloud-native solutions on AWS ROSA with OpenShift and Kubernetes</div>
+            <div class="exp-ach">Built real-time analytics pipelines using Kafka Streams, DynamoDB, and AWS Lambda</div>
+            <div class="exp-ach">Led technical reviews ensuring enterprise architecture standards and security protocol adherence</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item anim" style="animation-delay:.13s">
+        <div class="exp-dot"></div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-hdr">
+            <div><div class="exp-role">Java Software Engineer</div><div class="exp-company">Cygnet Infotech Private Limited</div></div>
+            <span class="exp-period">Aug 2020 – Aug 2021</span>
+          </div>
+          <div class="exp-tags"><span class="etag">Spring Boot</span><span class="etag">AWS RDS</span><span class="etag">Redis</span><span class="etag">ELK Stack</span></div>
+          <span class="exp-toggle">▼ Show achievements</span>
+          <div class="exp-body">
+            <div class="exp-ach">Developed HBB middleware platform using Spring Boot microservices and AWS RDS</div>
+            <div class="exp-ach">Built SalesPlus POS system supporting 700+ stores with real-time inventory management</div>
+            <div class="exp-ach">Achieved 95% test coverage using JUnit 5, Mockito, and Spring Boot Test</div>
+            <div class="exp-ach">Built monitoring dashboards using ELK stack for application performance and error tracking</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item anim" style="animation-delay:.18s">
+        <div class="exp-dot"></div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-hdr">
+            <div><div class="exp-role">Java Software Engineer</div><div class="exp-company">Netweb Softwares Private Limited</div></div>
+            <span class="exp-period">Jan 2019 – May 2020</span>
+          </div>
+          <div class="exp-tags"><span class="etag">Spring Boot</span><span class="etag">OAuth 2.0</span><span class="etag">Azure Cognitive</span><span class="etag">Spring Batch</span></div>
+          <span class="exp-toggle">▼ Show achievements</span>
+          <div class="exp-body">
+            <div class="exp-ach">Architected Identity Theft Management using Spring Boot, JPA, MySQL with master-slave replication</div>
+            <div class="exp-ach">Integrated credit bureau APIs — Experian, CIBIL, Equifax — with secure certificate authentication</div>
+            <div class="exp-ach">Built MLE BI platform with Spring Batch ETL and Azure Cognitive Services for NLP</div>
+            <div class="exp-ach">Led a team of 4 developers on Spring ecosystem and database optimization</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item anim" style="animation-delay:.22s">
+        <div class="exp-dot"></div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-hdr">
+            <div><div class="exp-role">Sr. Software Engineer</div><div class="exp-company">Jalhar Solutions</div></div>
+            <span class="exp-period">Apr 2017 – Dec 2018</span>
+          </div>
+          <div class="exp-tags"><span class="etag">JSF</span><span class="etag">EJB</span><span class="etag">Spring Security</span><span class="etag">LDAP</span><span class="etag">jBPM</span></div>
+          <span class="exp-toggle">▼ Show achievements</span>
+          <div class="exp-body">
+            <div class="exp-ach">Designed ProfileFactory recruitment portal for European market using JSF, PrimeFaces, and EJB</div>
+            <div class="exp-ach">Built scalable architecture supporting 10K+ concurrent users using WildFly clustering</div>
+            <div class="exp-ach">Developed complex business workflows using JBoss jBPM and Drools rule engine</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item anim" style="animation-delay:.26s">
+        <div class="exp-dot"></div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-hdr">
+            <div><div class="exp-role">Software Engineer</div><div class="exp-company">Kailash Export and Import</div></div>
+            <span class="exp-period">Apr 2015 – Mar 2017</span>
+          </div>
+          <div class="exp-tags"><span class="etag">Spring Boot</span><span class="etag">PostgreSQL</span><span class="etag">Tableau</span><span class="etag">Spring Batch</span></div>
+          <span class="exp-toggle">▼ Show achievements</span>
+          <div class="exp-body">
+            <div class="exp-ach">Built BI ERP system using Spring Boot, Spring MVC, Spring Data JPA with PostgreSQL</div>
+            <div class="exp-ach">Implemented GST/taxation compliance modules with complex business rules</div>
+            <div class="exp-ach">Built payment automation system integrating with multiple payment gateways and banks</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-skills" class="section">
+    <div class="skills-grid">
+      <div class="skill-group anim">
+        <div class="sg-title">☕ Java Ecosystem</div>
+        <span class="skill-pill sp-java">Java 8/11/17/21</span><span class="skill-pill sp-java">Spring Boot 3.x</span><span class="skill-pill sp-java">Spring Security</span><span class="skill-pill sp-java">Spring Cloud</span><span class="skill-pill sp-java">Spring Batch</span><span class="skill-pill sp-java">Quarkus</span><span class="skill-pill sp-java">Hibernate</span><span class="skill-pill sp-java">JPA</span><span class="skill-pill sp-java">JAX-RS</span>
+      </div>
+      <div class="skill-group anim" style="animation-delay:.06s">
+        <div class="sg-title">☁️ Cloud & Infrastructure</div>
+        <span class="skill-pill sp-cloud">AWS (EC2, EKS, RDS, Lambda)</span><span class="skill-pill sp-cloud">Azure (AKS, APIM, Functions)</span><span class="skill-pill sp-cloud">Kubernetes</span><span class="skill-pill sp-cloud">Docker</span><span class="skill-pill sp-cloud">Helm</span><span class="skill-pill sp-cloud">OpenShift</span><span class="skill-pill sp-cloud">Terraform</span>
+      </div>
+      <div class="skill-group anim" style="animation-delay:.1s">
+        <div class="sg-title">🗄️ Data & Messaging</div>
+        <span class="skill-pill sp-data">Apache Kafka</span><span class="skill-pill sp-data">PostgreSQL</span><span class="skill-pill sp-data">Redis</span><span class="skill-pill sp-data">DynamoDB</span><span class="skill-pill sp-data">Elasticsearch</span><span class="skill-pill sp-data">MongoDB</span><span class="skill-pill sp-data">Apache Spark</span><span class="skill-pill sp-data">RabbitMQ</span>
+      </div>
+      <div class="skill-group anim" style="animation-delay:.14s">
+        <div class="sg-title">⚙️ DevOps & Observability</div>
+        <span class="skill-pill sp-devops">Jenkins</span><span class="skill-pill sp-devops">GitLab CI/CD</span><span class="skill-pill sp-devops">GitHub Actions</span><span class="skill-pill sp-devops">ELK Stack</span><span class="skill-pill sp-devops">Prometheus</span><span class="skill-pill sp-devops">Grafana</span><span class="skill-pill sp-devops">SonarQube</span><span class="skill-pill sp-devops">Flyway</span>
+      </div>
+      <div class="skill-group anim" style="animation-delay:.18s">
+        <div class="sg-title">🔐 Security & Auth</div>
+        <span class="skill-pill sp-java">OAuth 2.0</span><span class="skill-pill sp-java">JWT / RS256</span><span class="skill-pill sp-java">SAML 2.0</span><span class="skill-pill sp-java">OpenID Connect</span><span class="skill-pill sp-java">Spring Security</span><span class="skill-pill sp-java">HashiCorp Vault</span><span class="skill-pill sp-java">OWASP</span>
+      </div>
+      <div class="skill-group anim" style="animation-delay:.22s">
+        <div class="sg-title">🤖 AI & Emerging Tech</div>
+        <span class="skill-pill sp-ai">LangChain4j</span><span class="skill-pill sp-ai">Spring AI</span><span class="skill-pill sp-ai">OpenAI API</span><span class="skill-pill sp-ai">Anthropic Claude</span><span class="skill-pill sp-ai">RAG Architecture</span><span class="skill-pill sp-ai">MCP</span><span class="skill-pill sp-ai">Prompt Engineering</span>
+      </div>
+    </div>
+    <div class="panel anim" style="margin-top:12px;animation-delay:.28s">
+      <div class="sec-label">Proficiency Levels</div>
+      <div class="proficiency-grid">
+        <div class="bar-item"><div class="bar-label"><span>Java / Spring Boot</span><span class="bar-pct">97%</span></div><div class="bar-track"><div class="bar-fill" data-pct="97"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Microservices & EDA</span><span class="bar-pct">95%</span></div><div class="bar-track"><div class="bar-fill" data-pct="95"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>AWS / Cloud Native</span><span class="bar-pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-pct="90"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Apache Kafka</span><span class="bar-pct">88%</span></div><div class="bar-track"><div class="bar-fill" data-pct="88"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Kubernetes / Docker</span><span class="bar-pct">85%</span></div><div class="bar-track"><div class="bar-fill" data-pct="85"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Database Design</span><span class="bar-pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-pct="90"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Security / OAuth2</span><span class="bar-pct">88%</span></div><div class="bar-track"><div class="bar-fill" data-pct="88"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>AI / LLM Integration</span><span class="bar-pct">78%</span></div><div class="bar-track"><div class="bar-fill" data-pct="78"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-projects" class="section">
+    <div class="proj-grid">
+      <div class="proj-card anim">
+        <div class="proj-name">BagODS – Airport Operations Platform</div>
+        <div class="proj-period">Aug 2021 – Dec 2023</div>
+        <div class="proj-impact">🎯 50M+ events/day at 99.99% uptime</div>
+        <div class="proj-desc">Event-driven microservices platform revolutionizing baggage handling for international airports using Quarkus reactive programming on AWS ROSA.</div>
+        <div class="exp-tags"><span class="etag">Java 17</span><span class="etag">Quarkus</span><span class="etag">Kafka 3.x</span><span class="etag">DynamoDB</span><span class="etag">AWS ROSA</span><span class="etag">OpenShift</span></div>
+      </div>
+      <div class="proj-card anim" style="animation-delay:.07s">
+        <div class="proj-name">Asset Management System</div>
+        <div class="proj-period">Jan 2025 – Present</div>
+        <div class="proj-impact">🎯 10M+ asset records on Azure</div>
+        <div class="proj-desc">Cloud-native enterprise asset lifecycle platform on Azure AKS with virtual threads, Cosmos DB partitioning, and serverless Azure Functions.</div>
+        <div class="exp-tags"><span class="etag">Java 21</span><span class="etag">Spring Boot 3</span><span class="etag">Azure AKS</span><span class="etag">Cosmos DB</span><span class="etag">Azure Functions</span></div>
+      </div>
+      <div class="proj-card anim" style="animation-delay:.12s">
+        <div class="proj-name">J2 Billing & eFax Platform</div>
+        <div class="proj-period">Dec 2023 – Jan 2025</div>
+        <div class="proj-impact">🎯 100+ enterprise clients, PCI compliant</div>
+        <div class="proj-desc">Multi-tenant SaaS billing and communication platform with Salesforce integration, Oracle AQ messaging, and AWS Lambda serverless billing.</div>
+        <div class="exp-tags"><span class="etag">Java 17</span><span class="etag">Spring Boot 3</span><span class="etag">Oracle AQ</span><span class="etag">Salesforce</span><span class="etag">CloudFormation</span></div>
+      </div>
+      <div class="proj-card anim" style="animation-delay:.17s">
+        <div class="proj-name">Healthcare Revenue Management (MLE BI)</div>
+        <div class="proj-period">May 2019 – May 2020</div>
+        <div class="proj-impact">🎯 100K+ medical claims/day via NLP</div>
+        <div class="proj-desc">Revenue cycle management platform with Azure Cognitive Services NLP, Spring Batch ETL for 5M+ records nightly, and Tableau embedded dashboards.</div>
+        <div class="exp-tags"><span class="etag">Spring Boot</span><span class="etag">Azure Cognitive</span><span class="etag">NLP</span><span class="etag">Spring Batch</span><span class="etag">Tableau</span></div>
+      </div>
+      <div class="proj-card anim" style="animation-delay:.22s">
+        <div class="proj-name">Financial Services Integration Platform</div>
+        <div class="proj-period">Jan 2019 – Aug 2020</div>
+        <div class="proj-impact">🎯 1M+ daily transactions, PCI/GDPR</div>
+        <div class="proj-desc">Enterprise credit bureau integration with Experian, CIBIL, Equifax using Apache Camel (25+ routes), real-time fraud detection, and blue-green K8s deployments.</div>
+        <div class="exp-tags"><span class="etag">Spring Boot</span><span class="etag">Apache Camel</span><span class="etag">MySQL</span><span class="etag">Kubernetes</span><span class="etag">OAuth 2.0</span></div>
+      </div>
+      <div class="proj-card anim" style="animation-delay:.27s">
+        <div class="proj-name">SalesPlus POS System</div>
+        <div class="proj-period">Aug 2020 – Aug 2021</div>
+        <div class="proj-impact">🎯 700+ stores, real-time inventory</div>
+        <div class="proj-desc">High-throughput Point-of-Sale middleware with Redis caching, AWS RDS connection pooling, and ELK-powered monitoring dashboards achieving 95% test coverage.</div>
+        <div class="exp-tags"><span class="etag">Spring Boot</span><span class="etag">AWS RDS</span><span class="etag">Redis</span><span class="etag">ELK Stack</span><span class="etag">JUnit 5</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-certs" class="section">
+    <div class="cert-grid">
+      <div class="cert-card anim"><div class="cert-icon">🏅</div><div class="cert-name">AWS Certified Cloud Practitioner</div><div class="cert-issuer">Amazon Web Services</div></div>
+      <div class="cert-card anim" style="animation-delay:.07s"><div class="cert-icon">🏅</div><div class="cert-name">AWS Certified Developer</div><div class="cert-issuer">Amazon Web Services</div></div>
+      <div class="cert-card anim" style="animation-delay:.12s"><div class="cert-icon">🎖️</div><div class="cert-name">Enterprise Design Thinking Co-creator</div><div class="cert-issuer">IBM</div></div>
+      <div class="cert-card anim" style="animation-delay:.17s"><div class="cert-icon">🎖️</div><div class="cert-name">AI-Team Essentials & Practitioner</div><div class="cert-issuer">IBM</div></div>
+      <div class="cert-card anim" style="animation-delay:.22s"><div class="cert-icon">🎖️</div><div class="cert-name">Agile Explorer & Practitioner</div><div class="cert-issuer">IBM</div></div>
+    </div>
+    <div class="panel anim" style="margin-top:12px;animation-delay:.28s">
+      <div class="sec-label">Methodologies & Practices</div>
+      <div class="method-tags">
+        <span class="mtag">✦ Agile / Scrum</span><span class="mtag">✦ DevSecOps</span><span class="mtag">✦ CI/CD Pipelines</span><span class="mtag">✦ Test-Driven Development</span><span class="mtag">✦ Domain-Driven Design</span><span class="mtag">✦ Enterprise Integration Patterns</span><span class="mtag">✦ Clean Architecture</span><span class="mtag">✦ OWASP Security</span><span class="mtag">✦ OpenAPI 3.0 First</span>
+      </div>
+    </div>
+    <div class="panel anim" style="animation-delay:.34s">
+      <div class="sec-label">Personal Details</div>
+      <div class="personal-grid">
+        <div class="personal-item"><div class="pi-k">Date of Birth</div><div class="pi-v">April 8, 1991</div></div>
+        <div class="personal-item"><div class="pi-k">Languages</div><div class="pi-v">English · Hindi · Gujarati</div></div>
+        <div class="personal-item"><div class="pi-k">Location</div><div class="pi-v">India</div></div>
+        <div class="personal-item"><div class="pi-k">Interests</div><div class="pi-v">Emerging Tech · Sports · Music · Technical Literature</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('show'));
+  document.querySelectorAll('.ntab').forEach(b => b.classList.remove('on'));
+  document.getElementById('tab-' + id).classList.add('show');
+  btn.classList.add('on');
+  if (id === 'skills') animateBars();
+}
+
+function toggleExp(card) {
+  const body = card.querySelector('.exp-body');
+  const toggle = card.querySelector('.exp-toggle');
+  const isOpen = body.classList.contains('show');
+  body.classList.toggle('show', !isOpen);
+  toggle.textContent = isOpen ? '▼ Show achievements' : '▲ Collapse';
+}
+
+function animateBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 100);
+}
+</script>
+</body>
+</html>
